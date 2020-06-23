@@ -1,2 +1,3 @@
 # Java_SpringBoot_back_end
-API Rest usando Java com Spring Boot 
+API Rest usando Java com Spring Boot, banco de dados MySQL, JPA com Hibernate para mapeamento objeto-relacional, envio de email com SMTP do Google, armazenamento de imagens com storage S3 da Amazon, autenticação e autorização com tokens JWT, e implantação na nuvem usando a plataforma Heroku. Inclui validação de dados, tratamento de exceções, uso adequado do protocolo HTTP no padrão REST, segurança, CORS... 
+## Versão: Spring Boot 2.0.x e 1.5.x
