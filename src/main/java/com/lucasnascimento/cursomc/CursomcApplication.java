@@ -87,6 +87,10 @@ public class CursomcApplication implements CommandLineRunner {
     Estado e2 = new Estado(null, "Minas Gerais");
 
     Cliente cli1 = new Cliente(1, "Maria", "maria@gmail.com", "35345785266", TipoCliente.PESSOAFISICA);
+    Cliente cli2 = new Cliente(2, "Genésio", "genesio@gmail.com", "481500000000190", TipoCliente.PESSOAJURIDICA);
+    Cliente cli3 = new Cliente(3, "Juakin", "juakin@gmail.com", "421500030000190", TipoCliente.PESSOAJURIDICA);
+    Cliente cli4 = new Cliente(4, "Alete", "aletebakurau@gmail.com", "34567890090", TipoCliente.PESSOAFISICA);
+    Cliente cli5 = new Cliente(5, "Nikita", "nikita@gmail.com", "67856745622", TipoCliente.PESSOAFISICA);
 
     Endereco end1 = new Endereco(null, "rua Flores", "300", "apto 303", "jardim", "38220834", cli1,
         c1);
@@ -114,7 +118,7 @@ public class CursomcApplication implements CommandLineRunner {
     produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
     estadoRepository.saveAll(Arrays.asList(e1, e2));
     cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-    clienteRepository.saveAll(Arrays.asList(cli1));
+    clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5));
     enderecoRepository.saveAll(Arrays.asList(end1, end2));
 
     Pedido pedido1 = new Pedido(null, sdf.parse("30/04/2020 22:22"), cli1, end1);

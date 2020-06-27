@@ -1,5 +1,7 @@
 package com.lucasnascimento.cursomc.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum TipoCliente {
 
   PESSOAFISICA(1, "Pessoa Física"),
@@ -21,6 +23,7 @@ public enum TipoCliente {
     return descricao;
   }
 
+  @JsonValue
    public static TipoCliente toEnum(Integer cod) {
 
     if(cod == null) {
