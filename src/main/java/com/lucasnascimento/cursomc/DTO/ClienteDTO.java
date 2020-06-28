@@ -5,6 +5,7 @@ import com.lucasnascimento.cursomc.domain.Endereco;
 import com.lucasnascimento.cursomc.domain.enums.TipoCliente;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +20,8 @@ public class ClienteDTO implements Serializable {
     @Length(min=3, max = 80, message = "O nome deve conter entre 3 e 80 caracteres")
     private String nome;
 
+    @NotEmpty(message = "O preenchimento do campo é obrigatório.")
+    @Email(message = "Email inválido")
     private String email;
     private String cpfOuCnpj;
     private Integer tipo;
@@ -33,10 +36,6 @@ public class ClienteDTO implements Serializable {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
         this.email = cliente.getEmail();
-        this.tipo = cliente.getTipo().getCodigo();
-        this.cpfOuCnpj = cliente.getCpfOuCnpj();
-        this.telefones = cliente.getTelefones();
-        this.enderecos = cliente.getEnderecos();
     }
 
     public ClienteDTO(Integer id, String nome, String email, List<Endereco> enderecos, Set<String> telefones, TipoCliente tipo, String cpfOuCnpj) {

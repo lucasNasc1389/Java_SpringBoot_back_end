@@ -18,54 +18,53 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
 
-  @Autowired
-  ClienteService clienteService;
+    @Autowired
+    ClienteService clienteService;
 
-  @RequestMapping(value = "/{idCliente}", method = RequestMethod.GET)
-  public ResponseEntity<Cliente> find(@PathVariable Integer idCliente) {
-    Cliente cliente =  clienteService.find(idCliente);
+    @RequestMapping(value = "/{idCliente}", method = RequestMethod.GET)
+    public ResponseEntity<Cliente> find(@PathVariable Integer idCliente) {
+        Cliente cliente = clienteService.find(idCliente);
 
-    return ResponseEntity.ok().body(cliente);
-  }
+        return ResponseEntity.ok().body(cliente);
+    }
 
-  @RequestMapping(value = "/{idCliente}", method = RequestMethod.PUT)
-  public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable Integer idCliente) {
-    clienteDTO.setId(idCliente);
-    Cliente cliente = clienteService.fromDTO(clienteDTO);
-    clienteService.update(cliente);
+    @RequestMapping(value = "/{idCliente}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable Integer idCliente) {
+        Cliente cliente = clienteService.fromDTO(clienteDTO);
+        clienteDTO.setId(idCliente);
+        clienteService.update(cliente);
 
-    return ResponseEntity.noContent().build();
-  }
+        return ResponseEntity.noContent().build();
+    }
 
-  @RequestMapping(value = "/{idCliente}", method = RequestMethod.DELETE)
-  public ResponseEntity<Void> delete(@PathVariable Integer idCliente) {
-    clienteService.delete(idCliente);
-    return ResponseEntity.noContent().build();
-  }
+    @RequestMapping(value = "/{idCliente}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Integer idCliente) {
+        clienteService.delete(idCliente);
+        return ResponseEntity.noContent().build();
+    }
 
-  @RequestMapping(method = RequestMethod.GET)
-  public ResponseEntity<List<ClienteDTO>> findAll() {
-    List<Cliente> listaClientes = clienteService.findAll();
-    List<ClienteDTO> listaClientesDTO = listaClientes.stream()
-            .map(cliente -> new ClienteDTO(cliente)).collect(Collectors.toList());
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<ClienteDTO>> findAll() {
+        List<Cliente> listaClientes = clienteService.findAll();
+        List<ClienteDTO> listaClientesDTO = listaClientes.stream()
+                .map(cliente -> new ClienteDTO(cliente)).collect(Collectors.toList());
 
-    return ResponseEntity.ok().body(listaClientesDTO);
-  }
+        return ResponseEntity.ok().body(listaClientesDTO);
+    }
 
-  @RequestMapping(value = "/page", method = RequestMethod.GET)
-  public ResponseEntity<Page<ClienteDTO>> findPage(
-          @RequestParam(name = "page", defaultValue = "0") Integer page,
-          @RequestParam(name = "linesPerPage", defaultValue = "2") Integer linesPerPage,
-          @RequestParam(name = "direction", defaultValue = "ASC") String direction,
-          @RequestParam(name = "orderBy", defaultValue = "nome") String nome
-  ) {
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<ClienteDTO>> findPage(
+            @RequestParam(name = "page", defaultValue = "0") Integer page,
+            @RequestParam(name = "linesPerPage", defaultValue = "2") Integer linesPerPage,
+            @RequestParam(name = "direction", defaultValue = "ASC") String direction,
+            @RequestParam(name = "orderBy", defaultValue = "nome") String nome
+    ) {
 
-    Page<Cliente> clientes = clienteService.findPage(page, linesPerPage, direction, nome);
-    Page<ClienteDTO> clienteDTO = clientes.map(cliente -> new ClienteDTO(cliente));
+        Page<Cliente> clientes = clienteService.findPage(page, linesPerPage, direction, nome);
+        Page<ClienteDTO> clienteDTO = clientes.map(cliente -> new ClienteDTO(cliente));
 
-    return ResponseEntity.ok().body(clienteDTO);
-  }
-
+        return ResponseEntity.ok().body(clienteDTO);
+    }
 
 
 }
