@@ -79,12 +79,12 @@ public class CursomcApplication implements CommandLineRunner {
     Produto p5 = new Produto(null, "Quadro", 200.00);
     Produto p6 = new Produto(null, "Boneca", 183.00);
 
-    Cidade c1 = new Cidade(null, "Campinas");
-    Cidade c2 = new Cidade(null, "São Paulo");
-    Cidade c3 = new Cidade(null, "Uberlândia");
-
     Estado e1 = new Estado(null, "São Paulo");
     Estado e2 = new Estado(null, "Minas Gerais");
+
+    Cidade c1 = new Cidade(null, "Campinas", e1);
+    Cidade c2 = new Cidade(null, "São Paulo", e1);
+    Cidade c3 = new Cidade(null, "Uberlândia",e2);
 
     Cliente cli1 = new Cliente(1, "Maria", "maria@gmail.com", "35345785266", TipoCliente.PESSOAFISICA);
     Cliente cli2 = new Cliente(2, "Genésio", "genesio@gmail.com", "481500000000190", TipoCliente.PESSOAJURIDICA);

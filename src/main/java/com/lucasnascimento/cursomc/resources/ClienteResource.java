@@ -1,6 +1,7 @@
 package com.lucasnascimento.cursomc.resources;
 
 import com.lucasnascimento.cursomc.DTO.ClienteDTO;
+import com.lucasnascimento.cursomc.DTO.ClienteNewDTO;
 import com.lucasnascimento.cursomc.domain.Cliente;
 import com.lucasnascimento.cursomc.service.ClienteService;
 import org.hibernate.validator.constraints.pl.REGON;
@@ -8,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.lang.reflect.Method;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,6 +68,21 @@ public class ClienteResource {
         Page<ClienteDTO> clienteDTO = clientes.map(cliente -> new ClienteDTO(cliente));
 
         return ResponseEntity.ok().body(clienteDTO);
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteNewDTO) {
+
+        Cliente cliente = clienteService.fromClienteDTO(clienteNewDTO);
+        Cliente obj = clienteService.insert(cliente);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
+
+
     }
 
 
