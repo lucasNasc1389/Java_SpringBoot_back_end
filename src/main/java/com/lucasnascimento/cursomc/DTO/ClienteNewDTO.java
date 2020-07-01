@@ -1,6 +1,7 @@
 package com.lucasnascimento.cursomc.DTO;
 
 import com.lucasnascimento.cursomc.domain.Endereco;
+import com.lucasnascimento.cursomc.service.validation.ClienteInsert;
 import org.hibernate.validator.constraints.Length;
 
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteInsert
 public class ClienteNewDTO  implements Serializable {
 
     private static final long serialVersionUID = 1L;
