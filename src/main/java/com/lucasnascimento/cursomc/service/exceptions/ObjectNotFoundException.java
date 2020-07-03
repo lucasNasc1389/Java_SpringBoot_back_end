@@ -1,5 +1,7 @@
 package com.lucasnascimento.cursomc.service.exceptions;
 
+import java.util.function.Supplier;
+
 public class ObjectNotFoundException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
