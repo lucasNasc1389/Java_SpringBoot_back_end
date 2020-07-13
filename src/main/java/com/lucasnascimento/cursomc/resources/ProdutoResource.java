@@ -7,11 +7,10 @@ import com.lucasnascimento.cursomc.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -22,7 +21,7 @@ public class ProdutoResource {
     ProdutoService produtoService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Produto> find(@RequestParam Integer id) {
+    public ResponseEntity<Produto> find(@PathVariable Integer id) {
         Produto produto = produtoService.find(id);
 
         return ResponseEntity.ok().body(produto);
@@ -43,6 +42,16 @@ public class ProdutoResource {
         Page<ProdutoDTO> produtoDTO = produtos.map(produto -> new ProdutoDTO(produto));
 
         return ResponseEntity.ok().body(produtoDTO);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Produto> insert(@RequestBody Produto produto) {
+        produtoService.insert(produto);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(produto.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 
 
