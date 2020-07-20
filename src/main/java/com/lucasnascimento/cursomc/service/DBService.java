@@ -96,9 +96,10 @@ public class DBService {
         Cidade c2 = new Cidade(null, "São Paulo", e1);
         Cidade c3 = new Cidade(null, "Uberlândia", e2);
         Cidade c4 = new Cidade(null, "Porto Alegre", e3);
+        Cidade c5 = new Cidade(null, "Artur Nogueira", e1);
 
         estadoRepository.saveAll(Arrays.asList(e1, e2, e3));
-        cidadeRepository.saveAll(Arrays.asList(c1, c2, c3, c4));
+        cidadeRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
 
         Cliente cli1 = new Cliente(1, "Maria", "maria2@gmail.com", "65731457042", TipoCliente.PESSOAFISICA);
         Cliente cli2 = new Cliente(2, "Genésio", "genesio2@gmail.com", "14486159000172", TipoCliente.PESSOAJURIDICA);
@@ -110,6 +111,8 @@ public class DBService {
                 c1);
         Endereco end2 = new Endereco(null, "rua 5", "256", "Casa 2", "Centro", "25666789", cli2, c2);
 
+        Endereco end3 = new Endereco(null, "rua Santiago Careca", "301", "Em frente à praça", "Jardim Amaro", "13160000", cli3, c5);
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 
@@ -119,26 +122,28 @@ public class DBService {
         c4.setEstado(e3);
         cli1.getTelefones().addAll(Arrays.asList("992192260", "994418300"));
         cli2.getTelefones().addAll(Arrays.asList("38772269", "995664533"));
-        cli1.getEnderecos().addAll(Arrays.asList(end1));
-        cli2.getEnderecos().addAll(Arrays.asList(end2));
 
         clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5));
-        enderecoRepository.saveAll(Arrays.asList(end1, end2));
+        enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 
         Pedido pedido1 = new Pedido(null, sdf.parse("30/04/2020 22:22"), cli1, end1);
         Pedido pedido2 = new Pedido(null, sdf.parse("01/05/2020 15:10"), cli2, end2);
+        Pedido pedido3 = new Pedido(null, sdf.parse("01/05/2020 15:10"), cli3, end3);
 
         Pagamento pgto1 = new PagamentocomCartao(null, EstadoPagamento.QUITADO, pedido1, 6);
         Pagamento pgto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido2,
                 sdf.parse("30/04/2020 22:22"), sdf.parse("30/6/2020 22:22"));
+        Pagamento pgto3 = new PagamentocomCartao(null, EstadoPagamento.QUITADO, pedido3, 6);
 
         cli1.getPedidos().addAll(Arrays.asList(pedido1));
-        cli1.getPedidos().addAll(Arrays.asList(pedido2));
+        cli2.getPedidos().addAll(Arrays.asList(pedido2));
+        cli3.getPedidos().addAll(Arrays.asList(pedido3));
         pedido1.setPagamento(pgto1);
         pedido2.setPagamento(pgto2);
+        pedido3.setPagamento(pgto3);
 
-        pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
-        pagamentoRepository.saveAll(Arrays.asList(pgto1, pgto2));
+        pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
+        pagamentoRepository.saveAll(Arrays.asList(pgto1, pgto2, pgto3));
 
         ItemPedido ip1 = new ItemPedido(pedido1, p1, 0.00, 1, 2000.00);
         ItemPedido ip2 = new ItemPedido(pedido1, p3, 0.00, 2, 80.00);
